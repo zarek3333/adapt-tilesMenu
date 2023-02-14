@@ -33,7 +33,7 @@ define([
                 $('.menu-item-button[data-content="' + i + '"]').click(function(){
                     /* Below addes page number in for the menu */
                     console.log('Page ' + i + ' of ' + numofpgs)
-                    $('.navpagenum').text( 'Page ' + i + ' of ' + numofpgs );
+                    $('.navpagenum').addClass("menu2trickle").text( 'Page ' + i + ' of ' + numofpgs );
                     $('.arianavpgnum').text( 'Page ' + i + ' of ' + numofpgs ).attr('role','region').attr('tabindex','0').addClass('aria-label');
                 });
 
