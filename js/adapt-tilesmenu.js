@@ -111,8 +111,8 @@ define([
         firstPGlaunch: function() {
             if((Adapt.offlineStorage.get("bookmarkPG") === "undefined") || (Adapt.offlineStorage.get("bookmarkPG") === undefined) || (Adapt.offlineStorage.get("bookmarkPG") == "")){
                 // Checks if you are on Main Menu or Sub Menu
-                 if ($('html#adapt').addClass('menulaunch')) {
-                    //Don't launch to menu respect page 1 launch
+                if ($('html#adapt').hasClass('menulaunch')) {
+                    console.log("MENU LAUNCH URL PARAMETER USED");
                 } else if ($('.nav__back-btn').hasClass('u-display-none')) {
                     $( '.firsttileview .menu-item[name="nth-child-1"] .origbutton .viewtext' ).trigger( 'click' );
                 } else {
@@ -126,7 +126,9 @@ define([
 
         navigateTo: function() {
             if((Adapt.offlineStorage.get("bookmarkPG") === "undefined") || (Adapt.offlineStorage.get("bookmarkPG") === undefined) || (Adapt.offlineStorage.get("bookmarkPG") == "")){
-                if( $('.navpagenum:empty').length ) {
+                if ($('html#adapt').hasClass('menulaunch')) {
+                    console.log("MENU LAUNCH URL PARAMETER USED");
+                } else if( $('.navpagenum:empty').length ) {
                     window.setTimeout(function(){
                         console.log("1st view of TILE MENU.");
                         $( 'html:not(.accessibility) .firsttileview .menu-item[name="nth-child-1"] .origbutton .viewtext' ).trigger( 'click' );
