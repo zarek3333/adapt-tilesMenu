@@ -69,6 +69,26 @@ define([
                 $('.tilesmenu-menu .menu-container-inner .menu-header .menu-header-inner .menu-body').addClass('submenu-body');
             }
 
+            var getUrlParameter = function getUrlParameter(sParam) { 
+                var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+                for (i = 0; i < sURLVariables.length; i++) { 
+                    sParameterName = sURLVariables[i].split('='); 
+                    if (sParameterName[0] === sParam) {
+                        return sParameterName[1] === undefined ? true : sParameterName[1];
+                    }
+                };
+            };
+            var menulaunch = getUrlParameter('menulaunch');
+            
+            if(menulaunch == 'on'){
+                $('html#adapt').addClass('menulaunch');
+            } else {
+                //Don't launch to menu respect page 1 launch
+            }
+
             // Triggers Page 1 when Accessibility button is pressed
             var config = this.model.get("_tilesMenu");
             var launchPGone = config && config._gotoPageone;
@@ -80,7 +100,7 @@ define([
 
             if (launchPGone == true) {
                 console.log("TILE MENU PAGE 1 LAUNCH IS OFF.");
-            } else if (launchPGone == false || $('.location-menu').hasClass('accessibility')) {
+            } else if (launchPGone == false || $('.location-menu').hasClass('accessibility') || !$('html#adapt').hasClass('menulaunch')) {
                 this.listenToOnce(Adapt, "menuView:postRender pageView:postRender", this.navigateTo); 
             }
 
@@ -89,7 +109,9 @@ define([
         firstPGlaunch: function() {
             if((Adapt.offlineStorage.get("bookmarkPG") === "undefined") || (Adapt.offlineStorage.get("bookmarkPG") === undefined) || (Adapt.offlineStorage.get("bookmarkPG") == "")){
                 // Checks if you are on Main Menu or Sub Menu
-                if ($('.nav__back-btn').hasClass('u-display-none')) {
+                 if ($('html#adapt').addClass('menulaunch')) {
+                    //Don't launch to menu respect page 1 launch
+                } else if ($('.nav__back-btn').hasClass('u-display-none')) {
                     $( '.firsttileview .menu-item[name="nth-child-1"] .origbutton .viewtext' ).trigger( 'click' );
                 } else {
                     //Do Nothing on SUB Menu
