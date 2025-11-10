@@ -100,7 +100,9 @@ define([
 
             if (launchPGone == true) {
                 console.log("TILE MENU PAGE 1 LAUNCH IS OFF.");
-            } else if (launchPGone == false || $('.location-menu').hasClass('accessibility') || !$('html#adapt').hasClass('menulaunch')) {
+            } else if ($('html#adapt').hasClass('menulaunch')) {
+                console.log("MENU LAUNCH URL PARAMETER USED");
+            } else if (launchPGone == false || $('.location-menu').hasClass('accessibility')) {
                 this.listenToOnce(Adapt, "menuView:postRender pageView:postRender", this.navigateTo); 
             }
 
